@@ -1,11 +1,19 @@
 from flask import Flask, render_template, redirect, request, url_for
 import json
 
+with open ('todo_data.json', 'r+') as f:
+    reading = f.read()
+    if reading == "":
+        initial_json = {"title":[], "desc":[]}
+        f.write(json.dumps(initial_json))
+
 
 def refresh_data():
     with open ('todo_data.json', 'r') as f:
         reading = f.read()
         data = json.loads(reading)
+
+
     global mydict
     mydict = data
     return mydict
